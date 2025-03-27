@@ -1,32 +1,70 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      v-if="isAuthenticated"
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
+
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          width="100"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        @click="logout"
+        text
+      >
+        <span class="mr-2">Sign out</span>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+    <v-snackbar top v-model="snackbar.show" :color="snackbar.color" timeout="3000">
+    {{ snackbar.message }}
+    <template v-slot:action="{ attrs }">
+      <v-btn text v-bind="attrs" @click="closeSnackbar">Cerrar</v-btn>
+    </template>
+  </v-snackbar>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 
-nav {
-  padding: 30px;
-}
+export default {
+  name: 'App',
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapState("ui", ["snackbar"])
+  },
+  methods: {
+    ...mapActions("auth", ["logout"]),
+    ...mapMutations("ui", ["HIDE_SNACKBAR"]), 
+    closeSnackbar() {
+      this.HIDE_SNACKBAR();
+    }
+  },
+};
+</script>
