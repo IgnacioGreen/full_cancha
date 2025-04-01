@@ -37,7 +37,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="blue-grey darken-1">
       <router-view/>
     </v-main>
     <v-snackbar top v-model="snackbar.show" :color="snackbar.color" timeout="3000">

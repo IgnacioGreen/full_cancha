@@ -2,7 +2,6 @@ import httpClient from "./httpClient";
 
 export default {
   getAll() {
-    console.log('http', httpClient)
     return httpClient.get('/events/');
   },
   getById(id) {

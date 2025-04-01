@@ -38,9 +38,7 @@ export default{
       rules: rules,
   }},
   mounted () {
-    console.log('mounted');
     this.fetchEvents();
-    
   },
   methods: {
     ...mapActions("events", ["fetchEvents"]),
