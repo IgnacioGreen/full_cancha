@@ -65,7 +65,6 @@ export default {
     async deleteEvent({ commit }, eventId) {
       try {
         const response = await eventApi.delete(eventId); 
-        console.log(response)// Llamamos a la API para eliminar el evento
         commit("REMOVE_EVENT", eventId);
         dispatch("ui/triggerSnackbar", {
           message: "Evento eliminado correctamente",

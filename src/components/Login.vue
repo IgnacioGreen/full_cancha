@@ -43,7 +43,6 @@ export default {
   },
   created(){
     if(this.$store.getters['auth/isAuthenticated']){
-      console.log('Authenticated');
       this.$router.push('/reservations');
     }
   },

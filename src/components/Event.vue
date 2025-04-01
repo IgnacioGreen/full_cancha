@@ -275,7 +275,6 @@ export default {
         },
         async toggleDeleteEvent(){
             const request = await this.deleteEvent(this.eventId);
-            console.log(request, 'request');
             if (request.status === 204){
                 this.snackbarMessage = "Evento eliminado con éxito: " + request.data.title;
                 this.snackbarType = "success";
